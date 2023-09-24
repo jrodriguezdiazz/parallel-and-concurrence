@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 class AirlineReservationSystem
@@ -7,12 +8,12 @@ class AirlineReservationSystem
     private static object lockObj = new object();
     private static List<string> availableFlights = new List<string> { "Flight1", "Flight2", "Flight3" };
 
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
         Console.WriteLine("Welcome to the Airline Reservation System!");
         Console.WriteLine("Available flights: Flight1, Flight2, Flight3");
 
-        int numberOfPassengers = 5; // Number of passengers making reservations
+        int numberOfPassengers = 7; // Number of passengers making reservations
 
         List<Task> reservationTasks = new List<Task>();
 
@@ -23,7 +24,7 @@ class AirlineReservationSystem
             reservationTasks.Add(reservationTask);
         }
 
-        await Task.WhenAll(reservationTasks);
+        Task.WhenAll(reservationTasks).Wait();
 
         Console.WriteLine("All reservations are complete. Thank you for booking with us!");
     }
